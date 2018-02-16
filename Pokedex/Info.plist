@@ -10,7 +10,9 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>pokemon_pixel_font.ttf</string>
+		<string>Pokemon Classic.ttf</string>
+		<string>Pokemon Solid.ttf</string>
+		<string>Pokemon Hollow.ttf</string>
 	</array>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>

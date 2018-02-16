@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     var inputPokemon: UITextField!
+    var titlePokedex: UITextView!
     
     var sliderValueAttack: UILabel!
     var sliderValueDefense: UILabel!
@@ -19,10 +20,13 @@ class ViewController: UIViewController {
     var healthInput: UITextField!
     var defenseInput: UITextField!
     
+    var pokemonSearch: UITextField!
+    
     var scView:UIScrollView!
     let buttonPadding:CGFloat = 10
     var xOffset:CGFloat = 10
-    var filtered: Array<String>!
+    var filteredType = Set<Int>()
+    var filteredValues = [Int]()
     var types = ["Bug", "Grass", "Dark", "Dragon","Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
 
 
@@ -34,10 +38,22 @@ class ViewController: UIViewController {
     
     func setupFilters() {
         
-        scView = UIScrollView(frame: CGRect(x: 0, y: 120, width: view.bounds.width, height: 90))
+        let width = UIScreen.main.bounds.size.width
+        let height = UIScreen.main.bounds.size.height
+        
+        let imageViewBackground = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        imageViewBackground.image = UIImage(named: "Pokeball")
+        
+        // you can change the content mode:
+        imageViewBackground.contentMode = UIViewContentMode.scaleAspectFill
+        imageViewBackground.alpha = 0.5
+        
+        view.addSubview(imageViewBackground)
+        
+        scView = UIScrollView(frame: CGRect(x: 0, y: 150, width: view.bounds.width, height: 110))
         view.addSubview(scView)
         
-        scView.backgroundColor = .white
+   //     scView.backgroundColor = .white
         scView.translatesAutoresizingMaskIntoConstraints = false
         
         for i in 0 ... 17 {
@@ -46,28 +62,54 @@ class ViewController: UIViewController {
             button.setImage(UIImage(named: "\(i).png"), for: .normal)
             button.addTarget(self, action: #selector(typeButtonTouched), for: UIControlEvents.touchUpInside)
             
-            button.frame = CGRect(x: xOffset, y: CGFloat(buttonPadding), width: 70, height: 70)
+            button.frame = CGRect(x: xOffset, y: CGFloat(buttonPadding), width: 80, height: 100)
             
             xOffset = xOffset + CGFloat(buttonPadding) + button.frame.size.width
             scView.addSubview(button)
         }
         scView.contentSize = CGSize(width: xOffset, height: scView.frame.height)
         
-        attackInput.frame = CGRect(x: 60, y: 400, width: view.frame.width-120, height: 90)
-        attackInput.
-        healthInput.frame = CGRect(x: 60, y: 600, width: view.frame.width-120, height: 90)
-        defenseInput.frame = CGRect(x: 60, y: 700, width: view.frame.width-120, height: 90)
+        titlePokedex = UITextView(frame: CGRect(x: 0, y: 20, width: view.frame.width, height: 60))
+        titlePokedex.font = UIFont(name: "Pokemon Solid", size: 30)
+        titlePokedex.backgroundColor = .red
+        titlePokedex.alpha = 0.7
+        titlePokedex.textColor = .white
+        titlePokedex.textAlignment = .center
+        titlePokedex.text = "Pokedex"
+        view.addSubview(titlePokedex)
         
+        attackInput = UITextField(frame: CGRect(x: 60, y: 400, width: view.frame.width-120, height: 50))
+        attackInput.font = UIFont(name: "Pokemon Classic", size: 13)
+        attackInput.placeholder = "Minimum Attack Points"
+        attackInput.borderStyle = .roundedRect
+        view.addSubview(attackInput)
         
+        healthInput = UITextField(frame: CGRect(x: 60, y: 470, width: view.frame.width-120, height: 50))
+        healthInput.font = UIFont(name: "Pokemon Classic", size: 13)
+        healthInput.placeholder = "Minimum Health Points"
+        healthInput.borderStyle = .roundedRect
+        view.addSubview(healthInput)
+        
+        defenseInput = UITextField(frame: CGRect(x: 60, y: 540, width: view.frame.width-120, height: 50))
+        defenseInput.font = UIFont(name: "Pokemon Classic", size: 13)
+        defenseInput.placeholder = "Minimum Defense Points"
+        defenseInput.borderStyle = .roundedRect
+        view.addSubview(defenseInput)
 
     }
     
     func typeButtonTouched(sender: UIButton) {
-        filtered.append(types[sender.tag])
-        sender.layer.borderWidth = 1
-        sender.layer.borderColor = UIColor.black.cgColor
-        
-        print(filtered)
+        if (filteredType.contains(sender.tag)){
+            filteredType.remove(sender.tag)
+            sender.layer.borderWidth = 2
+            sender.layer.borderColor = UIColor.white.cgColor
+            print(filteredType)
+        } else {
+            filteredType.insert(sender.tag)
+            sender.layer.borderWidth = 2
+            sender.layer.borderColor = UIColor.red.cgColor
+            print(filteredType)
+        }
     }
 
 }
