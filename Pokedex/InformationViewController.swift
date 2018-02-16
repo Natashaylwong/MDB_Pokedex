@@ -56,7 +56,6 @@ class InformationViewController: UIViewController {
         pokemonName.alpha = 0.5
         pokemonName.textColor = .white
         pokemonName.textAlignment = .center
-        print(pokemon.name)
         pokemonName.text = "\(pokemon.number) \(pokemon.name)"
         view.addSubview(pokemonName)
         

@@ -10,25 +10,31 @@
 import UIKit
 
 class FilteredViewController: UIViewController {
-    var attack: Int!
-    var health: Int!
-    var defense: Int!
+    var attack = 0
+    var health = 0
+    var defense = 0
     var favPokemon: Array<Int>!
-    var randomPokemon: Set<Int>!
+    var favPressed: Bool!
+    var randomPokemon = Set<Int>()
     var namePokemon: String!
     var pokemon: Pokemon!
+    
+    var types = Set<Int>()
+    var getTypes = Set<String>()
     
     var gridView: UICollectionView!
     var listView: UITableView!
     var pokemonArray = PokemonGenerator.getPokemonArray()
     var getfilteredPokemon = Array<Pokemon>()
     var numOfPokemon: Int = 800
+    var pokemonTypes = ["Bug", "Grass", "Dark", "Dragon","Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupListView()
         setupGridView()
         settingSC()
+        filtering()
         gridView.reloadData()
         listView.reloadData()
         // Do any additional setup after loading the view.
@@ -52,10 +58,11 @@ class FilteredViewController: UIViewController {
     }
     
     func filtering() {
-        if randomPokemon.isEmpty {
+        if !randomPokemon.isEmpty {
             //Have an array list of numbers that you want to use to find the index of the pokemon
             for i in randomPokemon {
                 getfilteredPokemon.append(pokemonArray[i])
+                
             }
         }
         else if favPokemon != nil {
@@ -63,16 +70,39 @@ class FilteredViewController: UIViewController {
                 getfilteredPokemon.append(pokemonArray[i])
             }
         }
-        else if namePokemon != nil {
+        else if namePokemon != nil || namePokemon != "" {
             for i in pokemonArray {
                 if (i.name == namePokemon) {
                     getfilteredPokemon.append(i)
+                    print(getfilteredPokemon[0])
                 }
             }
+        } else if attack == 0 && defense == 0 && health == 0  && types.isEmpty {
+            getfilteredPokemon = PokemonGenerator.getPokemonArray()
         } else {
             for i in pokemonArray {
-                if i.attack >= attack && i.defense >= defense && i.health >= health {
-                    getfilteredPokemon.append(i)
+                if types.isEmpty {
+                    if i.attack >= attack && i.defense >= defense && i.health >= health {
+                        print(attack)
+                        print(defense)
+                        print(health)
+                        getfilteredPokemon.append(i)
+                    }
+                } else {
+                    for i in types {
+                        getTypes.insert(pokemonTypes[i])
+                    }
+                    if attack == 0 && defense == 0 && health == 0 {
+                        for i in pokemonArray {
+                            let listSet = Set(i.types)
+                            let findListSet = Set(getTypes)
+                            
+                            let allElemsContained = findListSet.isSubset(of: listSet)
+                            if allElemsContained {
+                                getfilteredPokemon.append(i)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -168,7 +198,7 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let pokemonCell = cell as! PokemonViewCell2
-        let pokemon = pokemonArray[indexPath.item]
+        let pokemon = getfilteredPokemon[indexPath.item]
         let url = URL(string: pokemon.imageUrl)
         if url != nil {
             do {
@@ -225,7 +255,7 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     //We use this method to populate the data of a given cell
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let pokemonCell = cell as! PokemonViewCell
-        let pokemon = pokemonArray[indexPath.item]
+        let pokemon = getfilteredPokemon[indexPath.item]
         let url = URL(string: pokemon.imageUrl)
         if url != nil {
             do {
@@ -261,7 +291,6 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
        // self.performSegue(withIdentifier: "infoSegue", sender: self)
         pokemon = getfilteredPokemon[indexPath.item]
         CellTapped()
-        
     }
     
     func CellTapped() {
