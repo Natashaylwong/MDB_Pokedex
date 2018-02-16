@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     var inputPokemon: UITextField!
     var titlePokedex: UILabel!
     
@@ -42,6 +42,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupFilters()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
+        self.pokemonSearch.delegate = self
+        self.attackInput.delegate = self
+        self.healthInput.delegate = self
+        self.defenseInput.delegate = self
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func setupFilters() {
@@ -104,6 +121,7 @@ class ViewController: UIViewController {
         searchButton.layer.cornerRadius = 5
         searchButton.alpha = 0.7
         searchButton.clipsToBounds = true
+        searchButton.addTarget(self, action: #selector(findButtonTapped), for: .touchUpInside)
       //  searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
         view.addSubview(searchButton)
         
@@ -198,6 +216,17 @@ class ViewController: UIViewController {
             print(filteredType)
         }
     }
+    
+    func findButtonTapped(sender: UIButton) {
+        self.performSegue(withIdentifier: "findSegue", sender: self)
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "findSegue" {
+//            _ = segue.destination as! FilteredViewController
+//
+//        }
+//    }
 
 }
 
