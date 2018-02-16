@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var defenseInput: UITextField!
     
     var pokemonSearch: UITextField!
+    var searchButton: UIButton!
     
     var scView:UIScrollView!
     let buttonPadding:CGFloat = 10
@@ -77,6 +78,19 @@ class ViewController: UIViewController {
         titlePokedex.textAlignment = .center
         titlePokedex.text = "Pokedex"
         view.addSubview(titlePokedex)
+        
+        pokemonSearch = UITextField(frame: CGRect(x: 10, y: 98, width: view.frame.width-150, height: 30))
+        pokemonSearch.font = UIFont(name: "Pokemon Classic", size: 13)
+        pokemonSearch.placeholder = "Search Pokemon"
+        pokemonSearch.borderStyle = .roundedRect
+        view.addSubview(pokemonSearch)
+        
+        searchButton = UIButton(frame: CGRect(x: 10, y: 98, width: 100, height: 30))
+        searchButton.backgroundColor = .white
+        searchButton.setTitle("Find", for: .normal)
+        searchButton.layer.cornerRadius = 5
+        searchButton.clipsToBounds = true
+        view.addSubview(searchButton)
         
         attackInput = UITextField(frame: CGRect(x: 60, y: 400, width: view.frame.width-120, height: 50))
         attackInput.font = UIFont(name: "Pokemon Classic", size: 13)
