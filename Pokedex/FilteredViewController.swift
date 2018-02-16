@@ -9,6 +9,12 @@
 import UIKit
 
 class FilteredViewController: UIViewController {
+    var attack: Int!
+    var health: Int!
+    var defense: Int!
+    var favPokemon: Array<Int>!
+    var randomPokemon: Set<Int>!
+    var namePokemon: String!
     
     var gridView: UICollectionView!
     var pokemonArray = PokemonGenerator.getPokemonArray()
