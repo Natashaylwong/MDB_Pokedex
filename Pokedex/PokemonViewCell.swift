@@ -40,7 +40,6 @@ class PokemonViewCell: UICollectionViewCell {
     }
     
     @objc func changeColor(sender: UIButton) {
-        print("changing color")
         delegate?.changeColorOfButton(forCell: self)
     }
 }
