@@ -25,6 +25,7 @@ class InformationViewController: UIViewController {
     var pokemonTotal: UILabel!
     var pokemonTypes: UILabel!
     var types = ["Bug", "Grass", "Dark", "Dragon","Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
+    var typeSentence: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +48,7 @@ class InformationViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = internet
         
         pokemonImage = UIImageView(frame: CGRect(x: 0, y: 100, width: view.frame.width - 120, height: 200))
-        checkImage()
+     //   checkImage()
         
         pokemonName = UILabel(frame: CGRect(x: 200, y: 20, width: 200, height: 50))
         pokemonName.font = UIFont(name: "Pokemon Solid", size: 30)
@@ -55,6 +56,7 @@ class InformationViewController: UIViewController {
         pokemonName.alpha = 0.5
         pokemonName.textColor = .white
         pokemonName.textAlignment = .center
+        print(pokemon.name)
         pokemonName.text = "\(pokemon.number) \(pokemon.name)"
         view.addSubview(pokemonName)
         
@@ -136,8 +138,8 @@ class InformationViewController: UIViewController {
         pokemonTypes.alpha = 0.5
         pokemonTypes.textColor = .white
         // pokemonDefense.textAlignment = .center
-        pokemonSpecialAttack.text = "Pokemon Types: \(pokemon.total)"
-        view.addSubview(pokemonTotal)
+        pokemonTypes.text = "Pokemon Types: \(pokemon.types)"
+        view.addSubview(pokemonTypes)
     }
     
     func heartPressed(sender: UIButton!) {
@@ -149,20 +151,20 @@ class InformationViewController: UIViewController {
         }
     }
     
-    func checkImage() {
-        let url = URL(string: pokemon.imageUrl)
-        if url != nil {
-            do {
-                let data = try Data(contentsOf: url!)
-                pokemonImage.image = UIImage(data: data)
-            } catch {
-                pokemonImage.image = UIImage(named: "pokedex")
-            }
-        } else {
-           pokemonImage.image = UIImage(named: "pokedex")
-            //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+//    func checkImage() {
+//        let url = URL(string: pokemon.imageUrl)
+//        if url != nil {
+//            do {
+//                let data = try Data(contentsOf: url!)
+//                pokemonImage.image = UIImage(data: data)
+//            } catch {
+//                pokemonImage.image = UIImage(named: "pokedex")
+//            }
+//        } else {
+//           pokemonImage.image = UIImage(named: "pokedex")
+//            //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
         }
-    }
+
     
     
     
@@ -176,4 +178,4 @@ class InformationViewController: UIViewController {
     }
     */
 
-}
+
