@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     var inputPokemon: UITextField!
     var titlePokedex: UITextView!
     
@@ -35,6 +35,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupFilters()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
+        self.pokemonSearch.delegate = self
+        self.attackInput.delegate = self
+        self.healthInput.delegate = self
+        self.defenseInput.delegate = self
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func setupFilters() {
@@ -85,11 +102,15 @@ class ViewController: UIViewController {
         pokemonSearch.borderStyle = .roundedRect
         view.addSubview(pokemonSearch)
         
-        searchButton = UIButton(frame: CGRect(x: 10, y: 98, width: 100, height: 30))
-        searchButton.backgroundColor = .white
+        searchButton = UIButton(frame: CGRect(x: 260, y: 98, width: 100, height: 30))
+        searchButton.backgroundColor = .red
+        searchButton.titleLabel?.font = UIFont(name: "Pokemon Classic", size: 13)!
         searchButton.setTitle("Find", for: .normal)
+        searchButton.setTitleColor(.white, for: .normal)
         searchButton.layer.cornerRadius = 5
+        searchButton.alpha = 0.7
         searchButton.clipsToBounds = true
+        searchButton.addTarget(self, action: #selector(findButtonTapped), for: .touchUpInside)
         view.addSubview(searchButton)
         
         attackInput = UITextField(frame: CGRect(x: 60, y: 400, width: view.frame.width-120, height: 50))
@@ -125,6 +146,17 @@ class ViewController: UIViewController {
             print(filteredType)
         }
     }
+    
+    func findButtonTapped(sender: UIButton) {
+        self.performSegue(withIdentifier: "findSegue", sender: self)
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "findSegue" {
+//            _ = segue.destination as! FilteredViewController
+//
+//        }
+//    }
 
 }
 
