@@ -9,27 +9,27 @@
 import UIKit
 
 protocol PokemonViewCellDelegate {
-    func changeColorOfButton(forCell: PokemonViewCell)
+    func gridButton(forCell: PokemonViewCell)
 }
 
 class PokemonViewCell: UICollectionViewCell {
     
     var pokemonImageView: UIImageView!
     var cellLabel: UILabel!
-    var cellButton: UIButton!
+//    var cellButton: UIButton!
     var delegate: PokemonViewCellDelegate? = nil
     
     override func awakeFromNib() {
         
-        cellButton = UIButton(frame: contentView.frame)
-//        cellButton.backgroundColor = UIColor.green
-        cellButton.layer.borderColor = UIColor.black.cgColor
-        cellButton.layer.borderWidth = 3
-        cellButton.layer.cornerRadius = 3
-        cellButton.clipsToBounds = true
-        cellButton.addTarget(self, action: #selector(changeColor), for: .touchUpInside)
-//        cellButton.contentVerticalAlignment = UIControlContentVerticalAlignment.bottom
-        contentView.addSubview(cellButton)
+//        cellButton = UIButton(frame: contentView.frame)
+////        cellButton.backgroundColor = UIColor.green
+//        cellButton.layer.borderColor = UIColor.black.cgColor
+//        cellButton.layer.borderWidth = 3
+//        cellButton.layer.cornerRadius = 3
+//        cellButton.clipsToBounds = true
+//        cellButton.addTarget(self, action: #selector(changeColor), for: .touchUpInside)
+////        cellButton.contentVerticalAlignment = UIControlContentVerticalAlignment.bottom
+//        contentView.addSubview(cellButton)
         cellLabel = UILabel(frame: CGRect(x: 10, y: contentView.frame.maxY - 25, width: contentView.frame.width - 10, height: 20))
         cellLabel.font = UIFont(name: "Pokemon Classic", size: 7)
         contentView.addSubview(cellLabel)
@@ -39,7 +39,7 @@ class PokemonViewCell: UICollectionViewCell {
         contentView.addSubview(pokemonImageView) //Remember to add UI elements to the contentView, not the cell itself
     }
     
-    @objc func changeColor(sender: UIButton) {
-        delegate?.changeColorOfButton(forCell: self)
-    }
+//    @objc func changeColor(sender: UIButton) {
+//        delegate?.changeColorOfButton(forCell: self)
+//    }
 }
