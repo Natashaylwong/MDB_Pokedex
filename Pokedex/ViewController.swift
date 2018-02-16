@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
     var inputPokemon: UITextField!
     var titlePokedex: UILabel!
+
     
     var sliderValueAttack: UILabel!
     var sliderValueDefense: UILabel!
@@ -25,6 +26,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var searchButton: UIButton!
     var randomButton: UIButton!
     var favoritesButton: UIButton!
+    var favPokemon: Array<Int>!
+    var randomPokemon: Set<Int>!
     
     var scView:UIScrollView!
     let buttonPadding:CGFloat = 10
@@ -77,11 +80,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         scView = UIScrollView(frame: CGRect(x: 0, y: 170, width: view.bounds.width, height: 110))
         view.addSubview(scView)
-        
-   //     scView.backgroundColor = .white
-//        scView.layer.borderColor = UIColor.red.cgColor
-//        scView.layer.borderWidth = 2
-//        scView.alpha = 0.7
         scView.translatesAutoresizingMaskIntoConstraints = false
         
         for i in 0 ... 17 {
@@ -122,7 +120,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         searchButton.alpha = 0.7
         searchButton.clipsToBounds = true
         searchButton.addTarget(self, action: #selector(findButtonTapped), for: .touchUpInside)
-      //  searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
         view.addSubview(searchButton)
         
         randomButton = UIButton(frame: CGRect(x: 30, y: 600, width: 150, height: 30))
@@ -133,7 +130,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         randomButton.layer.cornerRadius = 5
         randomButton.alpha = 0.7
         randomButton.clipsToBounds = true
-       // randomButton.addTarget(self, action: #selector(randomButtonTapped), for: .touchUpInside)
+        randomButton.addTarget(self, action: #selector(randomButtonTapped), for: .touchUpInside)
         view.addSubview(randomButton)
         
         favoritesButton = UIButton(frame: CGRect(x: 200, y: 600, width: 150, height: 30))
@@ -144,10 +141,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         favoritesButton.layer.cornerRadius = 5
         favoritesButton.alpha = 0.7
         favoritesButton.clipsToBounds = true
-      //  favoritesButton.addTarget(self, action: #selector(favoritesButtonTapped), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(favoritesButtonTapped), for: .touchUpInside)
         view.addSubview(favoritesButton)
-        
-        
         
         attackInput = UITextField(frame: CGRect(x: 60, y: 370, width: view.frame.width-120, height: 50))
         attackInput.font = UIFont(name: "Pokemon Classic", size: 13)
@@ -188,21 +183,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func pokemonSearchText (sender: UITextField) {
          namePokemon = sender.text
-        print(namePokemon)
-      // performSegue(withIdentifier: "toStats", sender: self)
     }
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "toStats" {
-//            let answer = segue.destination as! StatsViewController
-//            answer.lastAnswers = lastThreeQuestions
-//            answer.lastPeople = lastThreePeople
-//            answer.longestStreak = bestStreak
-//        }
     
-//    func favoritesButtonTapped (sender: UIButton) {
-//        performSegue(withIdentifier: "toStats", sender: self)
-//    }
-//
+    func favoritesButtonTapped (sender: UIButton) {
+        performSegue(withIdentifier: "findSegue", sender: self)
+    }
+    
+    func randomButtonTapped(sender: UIButton) {
+        while randomPokemon.count < 20 {
+            randomPokemon.insert(Int(arc4random_uniform(80)) + 1)
+        }
+        self.performSegue(withIdentifier: "findSegue", sender: self)
+    }
+
     func typeButtonTouched(sender: UIButton) {
         if (filteredType.contains(sender.tag)){
             filteredType.remove(sender.tag)
@@ -221,12 +214,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.performSegue(withIdentifier: "findSegue", sender: self)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "findSegue" {
-//            _ = segue.destination as! FilteredViewController
-//
-//        }
-//    }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "findSegue" {
+            let filtered = segue.destination as! FilteredViewController
+            filtered.namePokemon = namePokemon
+            filtered.attack = attack
+            filtered.health = health
+            filtered.defense = defense
+            filtered.favPokemon = favPokemon
+            filtered.randomPokemon = randomPokemon
+        }
+        
+    }
 }
-
