@@ -18,6 +18,7 @@
 		3CFC6F3F1D9871F100B4EBB5 /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFC6F3E1D9871F100B4EBB5 /* Pokemon.swift */; };
 		3CFC6F411D9871FC00B4EBB5 /* PokemonGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFC6F401D9871FC00B4EBB5 /* PokemonGenerator.swift */; };
 		69105DA420365F20009D9467 /* FilteredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69105DA320365F20009D9467 /* FilteredViewController.swift */; };
+		69105DA620367B7F009D9467 /* pokemon_pixel_font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 69105DA520367B78009D9467 /* pokemon_pixel_font.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		3CFC6F3E1D9871F100B4EBB5 /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		3CFC6F401D9871FC00B4EBB5 /* PokemonGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonGenerator.swift; sourceTree = "<group>"; };
 		69105DA320365F20009D9467 /* FilteredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredViewController.swift; sourceTree = "<group>"; };
+		69105DA520367B78009D9467 /* pokemon_pixel_font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = pokemon_pixel_font.ttf; path = ../../../Downloads/Pokemon_Pixel_Font/pokemon_pixel_font.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		3CFC6F0D1D98716000B4EBB5 /* Pokedex */ = {
 			isa = PBXGroup;
 			children = (
+				69105DA520367B78009D9467 /* pokemon_pixel_font.ttf */,
 				3CFC6F3C1D98719100B4EBB5 /* pokeData.json */,
 				3CFC6F0E1D98716000B4EBB5 /* AppDelegate.swift */,
 				3CFC6F101D98716000B4EBB5 /* ViewController.swift */,
@@ -245,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CFC6F191D98716000B4EBB5 /* LaunchScreen.storyboard in Resources */,
+				69105DA620367B7F009D9467 /* pokemon_pixel_font.ttf in Resources */,
 				3CFC6F161D98716000B4EBB5 /* Assets.xcassets in Resources */,
 				3CFC6F3D1D98719100B4EBB5 /* pokeData.json in Resources */,
 				3CFC6F141D98716000B4EBB5 /* Main.storyboard in Resources */,

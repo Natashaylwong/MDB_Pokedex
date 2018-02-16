@@ -19,7 +19,7 @@ class FilteredViewController: UIViewController {
     }
     
     func settingSC() {
-        let items = ["Grid View", "List View"]
+        let items = ["Grid", "List"]
         var customSC = UISegmentedControl(items: items)
         customSC.selectedSegmentIndex = 0
         

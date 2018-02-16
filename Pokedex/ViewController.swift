@@ -9,6 +9,16 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var inputPokemon: UITextField!
+    
+    var sliderValueAttack: UILabel!
+    var sliderValueDefense: UILabel!
+    var sliderValueHealth: UILabel!
+    
+    var attackSlider: UITextField!
+    var healthSlider: UITextField!
+    var defenseSlider: UITextField!
+    
     var scView:UIScrollView!
     let buttonPadding:CGFloat = 10
     var xOffset:CGFloat = 10
@@ -43,10 +53,19 @@ class ViewController: UIViewController {
         }
         scView.contentSize = CGSize(width: xOffset, height: scView.frame.height)
         
+        
+        
+        
+
     }
     
-    func typeButtonTouched() {
-        filtered.append(types[])
+    func typeButtonTouched(sender: UIButton) {
+        filtered.append(types[sender.tag])
+        sender.layer.borderWidth = 1
+        sender.layer.borderColor = UIColor.black.cgColor
+        
+        print(filtered)
     }
+
 }
 
