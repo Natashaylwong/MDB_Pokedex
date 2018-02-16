@@ -22,36 +22,41 @@ class FilteredViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    func settingSC() {
-        let items = ["Grid", "List"]
-        var customSC = UISegmentedControl(items: items)
-        customSC.selectedSegmentIndex = 0
-        
-        // Set up Frame and SegmentedControl
-        customSC = UISegmentedControl(frame: CGRect(x: 30, y: 10, width: view.frame.width - 60, height: 40))
-        
-        // Style the Segmented Control
-        customSC.layer.cornerRadius = 5.0  // Don't let background bleed
-        customSC.backgroundColor = .red
-        customSC.tintColor = .white
-        
-        // Add target action method
-      //  customSC.addTarget(self, action: Selector("______"), for: .valueChanged)
-        
-        // Add this custom Segmented Control to our view
-        self.view.addSubview(customSC)
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = false
     }
     
     func setupGridView() {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
         gridView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         gridView.register(PokemonViewCell.self, forCellWithReuseIdentifier: "pokemonCell")
         gridView.backgroundColor = UIColor.white
         gridView.delegate = self
         gridView.dataSource = self
         view.addSubview(gridView)
+    }
+    
+    func settingSC() {
+        let items = ["Grid", "List"]
+        let customSC = UISegmentedControl(items: items)
+        customSC.selectedSegmentIndex = 0
+        
+        // Set up Frame and SegmentedControl
+//        customSC = UISegmentedControl(frame: CGRect(x: 30, y: 10, width: view.frame.width - 60, height: 40))
+        
+        // Style the Segmented Control
+        customSC.sizeToFit()
+        customSC.layer.cornerRadius = 5.0  // Don't let background bleed
+        customSC.backgroundColor = .red
+        customSC.tintColor = .white
+        
+        // Add target action method
+        //  customSC.addTarget(self, action: Selector("______"), for: .valueChanged)
+        
+        // Add this custom Segmented Control to our view
+        self.navigationItem.titleView = customSC
     }
 }
     
@@ -78,12 +83,15 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     //We use this method to populate the data of a given cell
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let pokemonCell = cell as! PokemonViewCell
-        pokemonCell.pokemonImageView.image = UIImage(named: pokemon[indexPath.item].imageUrl)
+        let url = URL(string: pokemon[indexPath.item].imageUrl)
+        if let data = try? Data(contentsOf: url!) {
+            pokemonCell.pokemonImageView.image = UIImage(data: data)!
+        } //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
     }
     
     //Sets the size of the cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width - 30)/3, height: (view.frame.width - 30)/3)
+        return CGSize(width: 100, height: 100)
     }
     
     //If we want something to happen when the user taps a cell, then use this method
