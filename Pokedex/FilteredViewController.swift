@@ -17,20 +17,30 @@ class FilteredViewController: UIViewController {
     var namePokemon: String!
     
     var gridView: UICollectionView!
+    var listView: UITableView!
     var pokemonArray = PokemonGenerator.getPokemonArray()
     var numOfPokemon: Int = 800
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingSC()
-        
+        setupListView()
         setupGridView()
-
+        settingSC()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    func setupListView() {
+        listView = UITableView(frame: view.frame)
+        listView.register(PokemonViewCell2.self, forCellReuseIdentifier: "pokemonCell2")
+        listView.backgroundColor = UIColor.white
+        listView.tag = 1
+        listView.delegate = self
+        listView.dataSource = self
+        view.addSubview(listView)
     }
     
     func setupGridView() {
@@ -40,6 +50,7 @@ class FilteredViewController: UIViewController {
         gridView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         gridView.register(PokemonViewCell.self, forCellWithReuseIdentifier: "pokemonCell")
         gridView.backgroundColor = UIColor.white
+        gridView.tag = 0
         gridView.delegate = self
         gridView.dataSource = self
         view.addSubview(gridView)
@@ -52,7 +63,19 @@ class FilteredViewController: UIViewController {
         self.navigationController?.navigationBar.alpha = 0.3
         let items = ["Grid", "List"]
         let customSC = UISegmentedControl(items: items)
-        customSC.selectedSegmentIndex = 0
+        customSC.selectedSegmentIndex = 1
+        gridView.isHidden = true
+        listView.isHidden = false
+//        switch customSC.selectedSegmentIndex {
+//        case 0:
+//            gridView.isHidden = false
+//            listView.isHidden = true
+//        case 1:
+//            gridView.isHidden = true
+//            listView.isHidden = false
+//        default:
+//            break
+//        }
         
         // Set up Frame and SegmentedControl
 //        customSC = UISegmentedControl(frame: CGRect(x: 30, y: 10, width: view.frame.width - 60, height: 40))
@@ -71,7 +94,53 @@ class FilteredViewController: UIViewController {
     }
 }
     
-extension FilteredViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FilteredViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return numOfPokemon
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell2", for: indexPath) as! PokemonViewCell2
+        for view in cell.subviews {
+            view.removeFromSuperview()
+        }
+        cell.awakeFromNib()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let pokemonCell = cell as! PokemonViewCell2
+        let pokemon = pokemonArray[indexPath.item]
+        let url = URL(string: pokemon.imageUrl)
+        if url != nil {
+            do {
+                let data = try Data(contentsOf: url!)
+                pokemonCell.pokemonImageView.image = UIImage(data: data)
+                print(pokemon.number)
+                pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+                //                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
+            } catch {
+                print("No data")
+                pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
+                pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+                //                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
+            }
+        } else {
+            print("Broken url")
+            pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
+            pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+            //            pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
+            //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
     //Specifying the number of sections in the collectionView
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -86,6 +155,9 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     //We use this method to dequeue the cell and set it up
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pokemonCell", for: indexPath) as! PokemonViewCell
+        for view in cell.subviews {
+            view.removeFromSuperview()
+        }
         cell.awakeFromNib()
         cell.delegate = self
         return cell
@@ -102,15 +174,18 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
                 pokemonCell.pokemonImageView.image = UIImage(data: data)
                 print(pokemon.number)
                 pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+//                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
             } catch {
                 print("No data")
                 pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
                 pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+//                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
             }
         } else {
             print("Broken url")
             pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
             pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+//            pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
             //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
         }
     }
@@ -127,7 +202,11 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     
 }
 
-extension FilteredViewController: PokemonViewCellDelegate {
+extension FilteredViewController: PokemonViewCellDelegate, PokemonViewCell2Delegate {
+    func changeColorOfButton2(forCell: PokemonViewCell2) {
+        forCell.cellButton.backgroundColor = UIColor.blue
+    }
+    
     func changeColorOfButton(forCell: PokemonViewCell) {
         forCell.cellButton.backgroundColor = UIColor.blue
     }
