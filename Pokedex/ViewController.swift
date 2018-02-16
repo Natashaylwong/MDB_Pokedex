@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
     var inputPokemon: UITextField!
     var titlePokedex: UILabel!
+    
+    var favPressed = false
 
     
     var sliderValueAttack: UILabel!
@@ -27,16 +29,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var randomButton: UIButton!
     var favoritesButton: UIButton!
     var favPokemon: Array<Int>!
-    var randomPokemon: Set<Int>!
+    var randomPokemon = Set<Int>()
     
     var scView:UIScrollView!
     let buttonPadding:CGFloat = 10
     var xOffset:CGFloat = 10
     var filteredType = Set<Int>()
     
-    var attack: Int!
-    var health: Int!
-    var defense: Int!
+    var stringAttack: String!
+    var stringHealth: String!
+    var stringDefense: String!
+
+    var attack =  0
+    var health = 0
+    var defense = 0
     
     var types = ["Bug", "Grass", "Dark", "Dragon","Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
 
@@ -49,6 +55,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
+        favPressed = false
         self.pokemonSearch.delegate = self
         self.attackInput.delegate = self
         self.healthInput.delegate = self
@@ -108,7 +115,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         pokemonSearch.font = UIFont(name: "Pokemon Classic", size: 13)
         pokemonSearch.placeholder = "Search Pokemon"
         pokemonSearch.borderStyle = .roundedRect
-        pokemonSearch.addTarget(self, action: #selector(pokemonSearchText), for: .editingDidEnd)
+        pokemonSearch.addTarget(self, action: #selector(pokemonSearchText), for: .allEditingEvents)
         view.addSubview(pokemonSearch)
         
         searchButton = UIButton(frame: CGRect(x: 260, y: 110, width: 100, height: 30))
@@ -148,44 +155,53 @@ class ViewController: UIViewController, UITextFieldDelegate {
         attackInput.font = UIFont(name: "Pokemon Classic", size: 13)
         attackInput.placeholder = "Minimum Attack Points"
         attackInput.borderStyle = .roundedRect
-        attackInput.addTarget(self, action: #selector(attackText), for: .editingDidEnd)
+        attackInput.addTarget(self, action: #selector(attackText), for: .allEditingEvents)
         view.addSubview(attackInput)
 
         healthInput = UITextField(frame: CGRect(x: 60, y: 440, width: view.frame.width-120, height: 50))
         healthInput.font = UIFont(name: "Pokemon Classic", size: 13)
         healthInput.placeholder = "Minimum Health Points"
         healthInput.borderStyle = .roundedRect
-        healthInput.addTarget(self, action: #selector(healthText), for: .editingDidEnd)
+        healthInput.addTarget(self, action: #selector(healthText), for: .allEditingEvents)
         view.addSubview(healthInput)
         
         defenseInput = UITextField(frame: CGRect(x: 60, y: 510, width: view.frame.width-120, height: 50))
         defenseInput.font = UIFont(name: "Pokemon Classic", size: 13)
         defenseInput.placeholder = "Minimum Defense Points"
         defenseInput.borderStyle = .roundedRect
-        defenseInput.addTarget(self, action: #selector(defenseText), for: .editingDidEnd)
+        defenseInput.addTarget(self, action: #selector(defenseText), for: .allEditingEvents)
         view.addSubview(defenseInput)
 
     }
     
     @objc func attackText(sender: UITextField) {
-        attack = Int(sender.text!)
-        print(attack)
+        stringAttack = sender.text
+        if stringAttack != "" {
+            attack = Int(stringAttack)!
+        }
     }
     
     @objc func healthText(sender:UITextField) {
-        health = Int(sender.text!)
-        print(health)
+        stringHealth = sender.text
+        if stringHealth != "" {
+            health = Int(stringHealth)!
+        }
     }
     @objc func defenseText(sender: UITextField) {
-        defense = Int(sender.text!)
-        print(defense)
+        stringDefense = sender.text
+        if stringDefense != "" {
+            defense = Int(stringDefense)!
+        }
     }
     
     func pokemonSearchText (sender: UITextField) {
          namePokemon = sender.text
+
+
     }
     
     @objc func favoritesButtonTapped (sender: UIButton) {
+        favPressed = true
         performSegue(withIdentifier: "findSegue", sender: self)
     }
     
@@ -218,10 +234,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "findSegue" {
             let filtered = segue.destination as! FilteredViewController
             filtered.namePokemon = namePokemon
+            print(namePokemon)
+            filtered.types = filteredType
             filtered.attack = attack
             filtered.health = health
             filtered.defense = defense
             filtered.favPokemon = favPokemon
+            filtered.favPressed = favPressed
             filtered.randomPokemon = randomPokemon
         }
         
