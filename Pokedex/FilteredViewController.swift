@@ -17,12 +17,13 @@ class FilteredViewController: UIViewController {
     var namePokemon: String!
     
     var gridView: UICollectionView!
-    var pokemon = PokemonGenerator.getPokemonArray()
-    var numOfPokemon: Int! = 800
+    var pokemonArray = PokemonGenerator.getPokemonArray()
+    var numOfPokemon: Int = 800
 
     override func viewDidLoad() {
         super.viewDidLoad()
         settingSC()
+        
         setupGridView()
 
         // Do any additional setup after loading the view.
@@ -34,8 +35,8 @@ class FilteredViewController: UIViewController {
     
     func setupGridView() {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 0
         gridView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         gridView.register(PokemonViewCell.self, forCellWithReuseIdentifier: "pokemonCell")
         gridView.backgroundColor = UIColor.white
@@ -89,15 +90,30 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     //We use this method to populate the data of a given cell
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let pokemonCell = cell as! PokemonViewCell
-        let url = URL(string: pokemon[indexPath.item].imageUrl)
-        if let data = try? Data(contentsOf: url!) {
-            pokemonCell.pokemonImageView.image = UIImage(data: data)!
-        } //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        let pokemon = pokemonArray[indexPath.item]
+        let url = URL(string: pokemon.imageUrl)
+        if url != nil {
+            do {
+                let data = try Data(contentsOf: url!)
+                pokemonCell.pokemonImageView.image = UIImage(data: data)
+                print(pokemon.number)
+                pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+            } catch {
+                print("No data")
+                pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
+                pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+            }
+        } else {
+            print("Broken url")
+            pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
+            pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
+            //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+        }
     }
     
     //Sets the size of the cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return CGSize(width: (view.frame.width)/3.2, height: 120)
     }
     
     //If we want something to happen when the user taps a cell, then use this method
