@@ -167,16 +167,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     }
     
-    func attackText(sender: UITextField) {
+    @objc func attackText(sender: UITextField) {
         attack = Int(sender.text!)
         print(attack)
     }
     
-    func healthText(sender:UITextField) {
+    @objc func healthText(sender:UITextField) {
         health = Int(sender.text!)
         print(health)
     }
-    func defenseText(sender: UITextField) {
+    @objc func defenseText(sender: UITextField) {
         defense = Int(sender.text!)
         print(defense)
     }
@@ -185,11 +185,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
          namePokemon = sender.text
     }
     
-    func favoritesButtonTapped (sender: UIButton) {
+    @objc func favoritesButtonTapped (sender: UIButton) {
         performSegue(withIdentifier: "findSegue", sender: self)
     }
     
-    func randomButtonTapped(sender: UIButton) {
+    @objc func randomButtonTapped(sender: UIButton) {
         while randomPokemon.count < 20 {
             randomPokemon.insert(Int(arc4random_uniform(80)) + 1)
         }
@@ -210,7 +210,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func findButtonTapped(sender: UIButton) {
+    @objc func findButtonTapped(sender: UIButton) {
         self.performSegue(withIdentifier: "findSegue", sender: self)
     }
     
