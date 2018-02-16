@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pZX-ff-btf">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,6 +9,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="wac-vf-aOj">
+            <objects>
+                <navigationController id="pZX-ff-btf" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fxY-fT-ApF">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="OPl-Lo-cou"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bV3-va-W2M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1071" y="125"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -22,30 +38,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="sfK-5u-pLa"/>
                     <connections>
-                        <segue destination="5b8-Jc-RLR" kind="presentation" id="5ES-cj-SjT"/>
                         <segue destination="iEV-zl-8dF" kind="presentation" id="B4q-jx-r8G"/>
+                        <segue destination="xA5-wb-Imp" kind="show" identifier="findSegue" id="5pg-tS-d2f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-44" y="125"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Oqe-Kp-AWm">
-            <objects>
-                <navigationController id="5b8-Jc-RLR" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aGo-MV-8sd">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="xA5-wb-Imp" kind="show" id="2f3-sY-h6A"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D88-zc-jg7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="924" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4Zw-qE-ZeL">
@@ -84,7 +85,7 @@
         <!--Filtered View Controller-->
         <scene sceneID="tea-RW-Fwl">
             <objects>
-                <viewController id="xA5-wb-Imp" customClass="FilteredViewController" sceneMemberID="viewController">
+                <viewController id="xA5-wb-Imp" customClass="FilteredViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="G3c-gH-zzf"/>
                         <viewControllerLayoutGuide type="bottom" id="YZO-lk-riO"/>
@@ -94,6 +95,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <navigationItem key="navigationItem" id="SvJ-vd-Bhx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="svg-PC-FBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
