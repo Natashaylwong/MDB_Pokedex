@@ -15,9 +15,9 @@ class ViewController: UIViewController {
     var sliderValueDefense: UILabel!
     var sliderValueHealth: UILabel!
     
-    var attackSlider: UITextField!
-    var healthSlider: UITextField!
-    var defenseSlider: UITextField!
+    var attackInput: UITextField!
+    var healthInput: UITextField!
+    var defenseInput: UITextField!
     
     var scView:UIScrollView!
     let buttonPadding:CGFloat = 10
@@ -53,7 +53,10 @@ class ViewController: UIViewController {
         }
         scView.contentSize = CGSize(width: xOffset, height: scView.frame.height)
         
-        
+        attackInput.frame = CGRect(x: 60, y: 400, width: view.frame.width-120, height: 90)
+        attackInput.
+        healthInput.frame = CGRect(x: 60, y: 600, width: view.frame.width-120, height: 90)
+        defenseInput.frame = CGRect(x: 60, y: 700, width: view.frame.width-120, height: 90)
         
         
 
