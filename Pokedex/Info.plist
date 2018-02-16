@@ -8,12 +8,6 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Pokemon Classic.ttf</string>
-		<string>Pokemon Solid.ttf</string>
-		<string>Pokemon Hollow.ttf</string>
-	</array>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -26,6 +20,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Pokemon Classic.ttf</string>
+		<string>Pokemon Solid.ttf</string>
+		<string>Pokemon Hollow.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
