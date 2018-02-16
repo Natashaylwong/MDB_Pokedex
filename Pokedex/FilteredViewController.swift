@@ -46,6 +46,10 @@ class FilteredViewController: UIViewController {
     }
     
     func settingSC() {
+        navigationController?.navigationBar.barTintColor = UIColor.red
+        navigationController?.navigationBar.barTintColor?.withAlphaComponent(0.5)
+        navigationController?.navigationBar.tintColor = UIColor.white;
+        self.navigationController?.navigationBar.alpha = 0.3
         let items = ["Grid", "List"]
         let customSC = UISegmentedControl(items: items)
         customSC.selectedSegmentIndex = 0
