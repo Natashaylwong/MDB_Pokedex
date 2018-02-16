@@ -10,10 +10,14 @@ import UIKit
 
 class FilteredViewController: UIViewController {
     
+    var gridView: UICollectionView!
+    var pokemon = PokemonGenerator.getPokemonArray()
+    var numOfPokemon = 800
 
     override func viewDidLoad() {
         super.viewDidLoad()
         settingSC()
+        setupGridView()
 
         // Do any additional setup after loading the view.
     }
@@ -37,6 +41,63 @@ class FilteredViewController: UIViewController {
         // Add this custom Segmented Control to our view
         self.view.addSubview(customSC)
     }
+    
+    func setupGridView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
+        gridView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        gridView.register(PokemonViewCell.self, forCellWithReuseIdentifier: "pokemonCell")
+        gridView.backgroundColor = UIColor.white
+        gridView.delegate = self
+        gridView.dataSource = self
+        view.addSubview(gridView)
+    }
+}
+    
+extension FilteredViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    //Specifying the number of sections in the collectionView
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    //Specifying the number of cells in the given section
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return numOfPokemon
+    }
+    
+    //We use this method to dequeue the cell and set it up
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pokemonCell", for: indexPath) as! PokemonViewCell
+        cell.awakeFromNib()
+        cell.delegate = self
+        return cell
+    }
+    
+    //We use this method to populate the data of a given cell
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let pokemonCell = cell as! PokemonViewCell
+        pokemonCell.pokemonImageView.image = UIImage(named: pokemon[indexPath.item].imageUrl)
+    }
+    
+    //Sets the size of the cell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (view.frame.width - 30)/3, height: (view.frame.width - 30)/3)
+    }
+    
+    //If we want something to happen when the user taps a cell, then use this method
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+    }
+    
+}
+
+extension FilteredViewController: PokemonViewCellDelegate {
+    func changeColorOfButton(forCell: PokemonViewCell) {
+        forCell.cellButton.backgroundColor = UIColor.blue
+    }
+}
 
     /*
     // MARK: - Navigation
@@ -47,5 +108,3 @@ class FilteredViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-}

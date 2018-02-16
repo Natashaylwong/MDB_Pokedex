@@ -83,7 +83,7 @@ class ViewController: UIViewController {
         attackInput.placeholder = "Minimum Attack Points"
         attackInput.borderStyle = .roundedRect
         view.addSubview(attackInput)
-        
+
         healthInput = UITextField(frame: CGRect(x: 60, y: 470, width: view.frame.width-120, height: 50))
         healthInput.font = UIFont(name: "Pokemon Classic", size: 13)
         healthInput.placeholder = "Minimum Health Points"
