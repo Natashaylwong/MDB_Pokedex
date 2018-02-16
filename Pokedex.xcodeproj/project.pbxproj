@@ -60,9 +60,9 @@
 		3CFC6F3E1D9871F100B4EBB5 /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		3CFC6F401D9871FC00B4EBB5 /* PokemonGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonGenerator.swift; sourceTree = "<group>"; };
 		69105DA320365F20009D9467 /* FilteredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredViewController.swift; sourceTree = "<group>"; };
-		69105DAA20368FD4009D9467 /* Pokemon Classic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pokemon Classic.ttf"; path = "../../../../Pokemon Classic.ttf"; sourceTree = "<group>"; };
-		69105DAC203694EC009D9467 /* Pokemon Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pokemon Solid.ttf"; path = "../../../../pokemon/Pokemon Solid.ttf"; sourceTree = "<group>"; };
-		69105DAD203694ED009D9467 /* Pokemon Hollow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pokemon Hollow.ttf"; path = "../../../../pokemon/Pokemon Hollow.ttf"; sourceTree = "<group>"; };
+		69105DAA20368FD4009D9467 /* Pokemon Classic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pokemon Classic.ttf"; path = "../../../Downloads/Pokemon Classic.ttf"; sourceTree = "<group>"; };
+		69105DAC203694EC009D9467 /* Pokemon Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pokemon Solid.ttf"; path = "../../../Downloads/pokemon/Pokemon Solid.ttf"; sourceTree = "<group>"; };
+		69105DAD203694ED009D9467 /* Pokemon Hollow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pokemon Hollow.ttf"; path = "../../../Downloads/pokemon/Pokemon Hollow.ttf"; sourceTree = "<group>"; };
 		7637A1F82036825700F83555 /* PokemonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
