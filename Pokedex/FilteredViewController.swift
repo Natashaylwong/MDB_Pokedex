@@ -1,3 +1,4 @@
+
 //
 //  FilteredViewController.swift
 //  Pokedex
@@ -47,6 +48,9 @@ class FilteredViewController: UIViewController {
         listView = UITableView(frame: view.frame)
         listView.register(PokemonViewCell2.self, forCellReuseIdentifier: "pokemonCell2")
         listView.backgroundColor = UIColor.white
+        listView.rowHeight = 80
+        listView.showsVerticalScrollIndicator = true
+        listView.bounces = true
         listView.tag = 1
         listView.delegate = self
         listView.dataSource = self
@@ -120,7 +124,7 @@ class FilteredViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "infoSegue" {
             let information = segue.destination as! InformationViewController
-            information.pokemon  = pokemon
+            information.pokemon = pokemon
         }
         
     }
@@ -165,13 +169,16 @@ class FilteredViewController: UIViewController {
     }
     
     @objc func switchingSC(sender: UISegmentedControl!) {
-        if sender.selectedSegmentIndex == 1 {
-            gridView.removeFromSuperview()
-            view.addSubview(listView)
-        } else {
-            listView.removeFromSuperview()
-            view.addSubview(gridView)
-        }
+        switch sender.selectedSegmentIndex {
+            case 0:
+                gridView.isHidden = false
+                listView.isHidden = true
+            case 1:
+                gridView.isHidden = true
+                listView.isHidden = false
+            default:
+                break
+            }
     }
 }
     
@@ -182,8 +189,8 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pokemonCell2", for: indexPath) as! PokemonViewCell2
-        for view in cell.subviews {
-            view.removeFromSuperview()
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview()
         }
         cell.awakeFromNib()
         return cell
@@ -216,6 +223,8 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+        pokemon = getfilteredPokemon[indexPath.row]
+        CellTapped()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -278,26 +287,26 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     //If we want something to happen when the user taps a cell, then use this method
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
-       
         //Natasha's Changes
        // self.performSegue(withIdentifier: "infoSegue", sender: self)
         pokemon = getfilteredPokemon[indexPath.item]
-        
-        
+        CellTapped()
+    }
+    
+    func CellTapped() {
+        self.performSegue(withIdentifier: "infoSegue", sender: self)
     }
     
 }
 
 extension FilteredViewController: PokemonViewCellDelegate, PokemonViewCell2Delegate {
-    func changeColorOfButton2(forCell: PokemonViewCell2) {
-    //    forCell.cellButton.backgroundColor = UIColor.blue
-        self.performSegue(withIdentifier: "infoSegue", sender: self)
+    
+    func listButton(forCell: PokemonViewCell2) {
+        forCell.backgroundColor = UIColor.clear
     }
     
-    func changeColorOfButton(forCell: PokemonViewCell) {
-       // forCell.cellButton.backgroundColor = UIColor.blue
-   
-        self.performSegue(withIdentifier: "infoSegue", sender: self)
+    func gridButton(forCell: PokemonViewCell) {
+        forCell.backgroundColor = UIColor.clear
     }
 }
 
