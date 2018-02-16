@@ -15,10 +15,12 @@ class FilteredViewController: UIViewController {
     var favPokemon: Array<Int>!
     var randomPokemon: Set<Int>!
     var namePokemon: String!
+    var pokemon: Pokemon!
     
     var gridView: UICollectionView!
     var listView: UITableView!
     var pokemonArray = PokemonGenerator.getPokemonArray()
+    var getfilteredPokemon = Array<Pokemon>()
     var numOfPokemon: Int = 800
 
     override func viewDidLoad() {
@@ -26,6 +28,8 @@ class FilteredViewController: UIViewController {
         setupListView()
         setupGridView()
         settingSC()
+        gridView.reloadData()
+        listView.reloadData()
         // Do any additional setup after loading the view.
     }
     
@@ -43,6 +47,34 @@ class FilteredViewController: UIViewController {
         view.addSubview(listView)
     }
     
+    func filtering() {
+        if randomPokemon.isEmpty {
+            //Have an array list of numbers that you want to use to find the index of the pokemon
+            for i in randomPokemon {
+                getfilteredPokemon.append(pokemonArray[i])
+            }
+        }
+        else if favPokemon != nil {
+            for i in favPokemon {
+                getfilteredPokemon.append(pokemonArray[i])
+            }
+        }
+        else if namePokemon != nil {
+            for i in pokemonArray {
+                if (i.name == namePokemon) {
+                    getfilteredPokemon.append(i)
+                }
+            }
+        } else {
+            for i in pokemonArray {
+                if i.attack >= attack && i.defense >= defense && i.health >= health {
+                    getfilteredPokemon.append(i)
+                }
+            }
+        }
+        numOfPokemon = getfilteredPokemon.count
+    }
+    
     func setupGridView() {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 20
@@ -55,13 +87,26 @@ class FilteredViewController: UIViewController {
         gridView.dataSource = self
         view.addSubview(gridView)
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "infoSegue" {
+            let information = segue.destination as! InformationViewController
+            information.pokemon  = pokemon
+        }
+        
+    }
+    
     
     func settingSC() {
+        navigationController?.navigationBar.barTintColor = UIColor.red
+        navigationController?.navigationBar.barTintColor?.withAlphaComponent(0.5)
+        navigationController?.navigationBar.tintColor = UIColor.white;
+        self.navigationController?.navigationBar.alpha = 0.3
         let items = ["Grid", "List"]
         let customSC = UISegmentedControl(items: items)
-        customSC.selectedSegmentIndex = 1
-        gridView.isHidden = true
-        listView.isHidden = false
+        customSC.addTarget(self, action: #selector(switchingSC), for: .valueChanged)
+        customSC.selectedSegmentIndex = 0
+        gridView.isHidden = false
+        listView.isHidden = true
 //        switch customSC.selectedSegmentIndex {
 //        case 0:
 //            gridView.isHidden = false
@@ -88,6 +133,16 @@ class FilteredViewController: UIViewController {
         // Add this custom Segmented Control to our view
         self.navigationItem.titleView = customSC
     }
+    
+    @objc func switchingSC(sender: UISegmentedControl!) {
+        if sender.selectedSegmentIndex == 1 {
+            gridView.removeFromSuperview()
+            view.addSubview(listView)
+        } else {
+            listView.removeFromSuperview()
+            view.addSubview(gridView)
+        }
+    }
 }
     
 extension FilteredViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
@@ -112,7 +167,6 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
             do {
                 let data = try Data(contentsOf: url!)
                 pokemonCell.pokemonImageView.image = UIImage(data: data)
-                print(pokemon.number)
                 pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
                 //                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
             } catch {
@@ -151,8 +205,8 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     //We use this method to dequeue the cell and set it up
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pokemonCell", for: indexPath) as! PokemonViewCell
-        for view in cell.subviews {
-            view.removeFromSuperview()
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview()
         }
         cell.awakeFromNib()
         cell.delegate = self
@@ -194,17 +248,26 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     //If we want something to happen when the user taps a cell, then use this method
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
+       
+        //Natasha's Changes
+       // self.performSegue(withIdentifier: "infoSegue", sender: self)
+        pokemon = pokemonArray[indexPath.item]
+        
+        
     }
     
 }
 
 extension FilteredViewController: PokemonViewCellDelegate, PokemonViewCell2Delegate {
     func changeColorOfButton2(forCell: PokemonViewCell2) {
-        forCell.cellButton.backgroundColor = UIColor.blue
+    //    forCell.cellButton.backgroundColor = UIColor.blue
+        self.performSegue(withIdentifier: "infoSegue", sender: self)
     }
     
     func changeColorOfButton(forCell: PokemonViewCell) {
-        forCell.cellButton.backgroundColor = UIColor.blue
+       // forCell.cellButton.backgroundColor = UIColor.blue
+   
+        self.performSegue(withIdentifier: "infoSegue", sender: self)
     }
 }
 
