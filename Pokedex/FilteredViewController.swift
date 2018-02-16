@@ -89,17 +89,17 @@ class FilteredViewController: UIViewController {
                         getfilteredPokemon.append(i)
                     }
                 } else {
-                    for i in types {
-                        getTypes.insert(pokemonTypes[i])
+                    for j in types {
+                        getTypes.insert(pokemonTypes[j])
                     }
-                    if attack == 0 && defense == 0 && health == 0 {
-                        for i in pokemonArray {
-                            let listSet = Set(i.types)
+                    if i.attack >= attack && i.defense >= defense && i.health >= health {
+                        for k in pokemonArray {
+                            let listSet = Set(k.types)
                             let findListSet = Set(getTypes)
                             
                             let allElemsContained = findListSet.isSubset(of: listSet)
                             if allElemsContained {
-                                getfilteredPokemon.append(i)
+                                getfilteredPokemon.append(k)
                             }
                         }
                     }
