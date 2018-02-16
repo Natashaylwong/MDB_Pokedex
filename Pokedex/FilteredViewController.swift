@@ -9,10 +9,16 @@
 import UIKit
 
 class FilteredViewController: UIViewController {
+    var attack: Int!
+    var health: Int!
+    var defense: Int!
+    var favPokemon: Array<Int>!
+    var randomPokemon: Set<Int>!
+    var namePokemon: String!
     
     var gridView: UICollectionView!
     var pokemon = PokemonGenerator.getPokemonArray()
-    var numOfPokemon = 800
+    var numOfPokemon: Int! = 800
 
     override func viewDidLoad() {
         super.viewDidLoad()
