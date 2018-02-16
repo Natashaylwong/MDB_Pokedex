@@ -19,6 +19,7 @@
 		3CFC6F411D9871FC00B4EBB5 /* PokemonGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFC6F401D9871FC00B4EBB5 /* PokemonGenerator.swift */; };
 		69105DA420365F20009D9467 /* FilteredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69105DA320365F20009D9467 /* FilteredViewController.swift */; };
 		69105DA620367B7F009D9467 /* pokemon_pixel_font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 69105DA520367B78009D9467 /* pokemon_pixel_font.ttf */; };
+		7637A1F92036825700F83555 /* PokemonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7637A1F82036825700F83555 /* PokemonViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		3CFC6F401D9871FC00B4EBB5 /* PokemonGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonGenerator.swift; sourceTree = "<group>"; };
 		69105DA320365F20009D9467 /* FilteredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredViewController.swift; sourceTree = "<group>"; };
 		69105DA520367B78009D9467 /* pokemon_pixel_font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = pokemon_pixel_font.ttf; path = ../../../Downloads/Pokemon_Pixel_Font/pokemon_pixel_font.ttf; sourceTree = "<group>"; };
+		7637A1F82036825700F83555 /* PokemonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				3CFC6F3E1D9871F100B4EBB5 /* Pokemon.swift */,
 				3CFC6F401D9871FC00B4EBB5 /* PokemonGenerator.swift */,
 				69105DA320365F20009D9467 /* FilteredViewController.swift */,
+				7637A1F82036825700F83555 /* PokemonViewCell.swift */,
 			);
 			path = Pokedex;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7637A1F92036825700F83555 /* PokemonViewCell.swift in Sources */,
 				3CFC6F111D98716000B4EBB5 /* ViewController.swift in Sources */,
 				3CFC6F411D9871FC00B4EBB5 /* PokemonGenerator.swift in Sources */,
 				3CFC6F0F1D98716000B4EBB5 /* AppDelegate.swift in Sources */,

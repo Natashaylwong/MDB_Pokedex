@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         scView.contentSize = CGSize(width: xOffset, height: scView.frame.height)
         
         attackInput.frame = CGRect(x: 60, y: 400, width: view.frame.width-120, height: 90)
-        attackInput.
+//        attackInput.
         healthInput.frame = CGRect(x: 60, y: 600, width: view.frame.width-120, height: 90)
         defenseInput.frame = CGRect(x: 60, y: 700, width: view.frame.width-120, height: 90)
         
