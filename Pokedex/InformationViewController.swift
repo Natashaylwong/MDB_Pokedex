@@ -10,12 +10,10 @@ import UIKit
 
 class InformationViewController: UIViewController {
 
-    var icon: UIImageView!
-    var heart: UIBarButtonItem!
+//    var icon: UIImageView!
+//    var heart: UIBarButtonItem!
     var iconButton: UIButton!
     var heartButton: UIButton!
-    
-    var favPokemon: Set<Int>!
     var pokemon: Pokemon!
     var pokemonImage: UIImageView!
     var pokemonName: UILabel!
@@ -40,9 +38,9 @@ class InformationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if pokemon.fav {
-            heart.tintColor = .red
+            heartButton.tintColor = .red
         } else {
-            heart.tintColor = .clear
+            heartButton.tintColor = .white
         }
     }
 
@@ -53,17 +51,17 @@ class InformationViewController: UIViewController {
 //        icon.image = UIImage(named: "heart.png")
 //        icon.contentMode = .scaleAspectFit // set imageview's content mode
 //        self.navigationController?.navigationBar. = icon
-        heart = UIBarButtonItem(image: UIImage(named: "heart.png"), style: .plain, target: self, action: Selector(("heartPressed")))
-        let internet = UIBarButtonItem(image: UIImage(named: "info.png"), style: .plain, target: self, action: Selector(("infoPressed")))
-        self.navigationItem.rightBarButtonItem = heart
-        self.navigationItem.leftBarButtonItem = internet
+//        heart = UIBarButtonItem(image: UIImage(named: "heart.png"), style: .plain, target: self, action: Selector(("heartPressed")))
+//        let internet = UIBarButtonItem(image: UIImage(named: "info.png"), style: .plain, target: self, action: Selector(("infoPressed")))
+//        self.navigationItem.rightBarButtonItem = heart
+//        self.navigationItem.leftBarButtonItem = internet
         
         iconButton = UIButton(frame: CGRect(x: 20, y: 600, width: 30, height: 30))
         iconButton.setImage(UIImage(named: "info"), for: .normal)
         iconButton.addTarget(self, action: #selector(infoPressed), for: .touchUpInside)
         view.addSubview(iconButton)
         
-        heartButton = UIButton(frame: CGRect(x: 400, y: 60, width: 30, height: 30))
+        heartButton = UIButton(frame: CGRect(x: 300, y: 60, width: 30, height: 30))
         heartButton.setImage(UIImage(named: "heart"), for: .normal)
         iconButton.addTarget(self, action: #selector(heartPressed), for: .touchUpInside)
         view.addSubview(heartButton)
@@ -153,14 +151,22 @@ class InformationViewController: UIViewController {
         view.addSubview(pokemonTypes)
     }
     
-    func heartPressed(sender: UIButton!) {
+    @objc func heartPressed(sender: UIButton!) {
         if pokemon.fav {
+            var i = 0
+            while (i < ViewController.favPokemon.count) {
+                let p = ViewController.favPokemon[i]
+                if (p.name == pokemon.name) {
+                    ViewController.favPokemon.remove(at: i)
+                    break
+                }
+                i += 1
+            }
             pokemon.fav = false
-            heart.tintColor = .clear
-            ViewController.favPokemon.remove(at: <#T##Int#>)
+            heartButton.tintColor = .white
         } else {
             pokemon.fav = true
-            heart.tintColor = .red
+            heartButton.tintColor = .red
             ViewController.favPokemon.append(pokemon)
         }
     }
