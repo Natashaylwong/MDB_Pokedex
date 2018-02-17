@@ -20,12 +20,12 @@ class PokemonViewCell2: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellLabel = UILabel(frame: CGRect(x: 80, y: contentView.frame.midY - 10, width: 200, height: 20))
+        cellLabel = UILabel(frame: CGRect(x: 120, y: contentView.frame.midY, width: 200, height: 20))
         cellLabel.font = UIFont(name: "Pokemon Classic", size: 10)
         contentView.addSubview(cellLabel)
-        pokemonImageView = UIImageView(frame: CGRect(x: 15, y: contentView.frame.minY + 5, width: 40, height: contentView.frame.height - 10))
+        pokemonImageView = UIImageView(frame: CGRect(x: 0, y: 5, width: 100, height: 60))
         pokemonImageView.contentMode = .scaleAspectFit
-        pokemonImageView.clipsToBounds = true
+//        pokemonImageView.clipsToBounds = true
         contentView.addSubview(pokemonImageView)
         //Remember to add UI elements to the contentView, not the cell itself
     }
