@@ -9,11 +9,13 @@
 import UIKit
 
 class InformationViewController: UIViewController {
+
+    var icon: UIImageView!
+    var heart: UIBarButtonItem!
     var iconButton: UIButton!
     var heartButton: UIButton!
     
     var favPokemon: Set<Int>!
-    
     var pokemon: Pokemon!
     var pokemonImage: UIImageView!
     var pokemonName: UILabel!
@@ -33,12 +35,29 @@ class InformationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if pokemon.fav {
+            heart.tintColor = .red
+        } else {
+            heart.tintColor = .clear
+        }
     }
 
     func setupLayout() {
         navigationController?.navigationBar.tintColor = UIColor.white;
+
+        self.navigationController?.navigationBar.alpha = 0.3
+//        icon.image = UIImage(named: "heart.png")
+//        icon.contentMode = .scaleAspectFit // set imageview's content mode
+//        self.navigationController?.navigationBar. = icon
+        heart = UIBarButtonItem(image: UIImage(named: "heart.png"), style: .plain, target: self, action: Selector(("heartPressed")))
+        let internet = UIBarButtonItem(image: UIImage(named: "info.png"), style: .plain, target: self, action: Selector(("infoPressed")))
+        self.navigationItem.rightBarButtonItem = heart
+        self.navigationItem.leftBarButtonItem = internet
+        
         iconButton = UIButton(frame: CGRect(x: 20, y: 600, width: 30, height: 30))
         iconButton.setImage(UIImage(named: "info"), for: .normal)
         iconButton.addTarget(self, action: #selector(infoPressed), for: .touchUpInside)
@@ -134,8 +153,16 @@ class InformationViewController: UIViewController {
         view.addSubview(pokemonTypes)
     }
     
-    @objc func heartPressed(sender: UIButton!) {
-        favPokemon.insert(pokemon.number)
+    func heartPressed(sender: UIButton!) {
+        if pokemon.fav {
+            pokemon.fav = false
+            heart.tintColor = .clear
+            ViewController.favPokemon.remove(at: <#T##Int#>)
+        } else {
+            pokemon.fav = true
+            heart.tintColor = .red
+            ViewController.favPokemon.append(pokemon)
+        }
     }
     @objc func infoPressed(sender: UIButton!) {
         if let url = URL(string: "https://google.com/search?q=\(pokemon.name)") {
