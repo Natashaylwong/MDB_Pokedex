@@ -11,8 +11,6 @@ import SafariServices
 
 class InformationViewController: UIViewController {
 
-//    var icon: UIImageView!
-//    var heart: UIBarButtonItem!
     var typesImage: UIImageView!
     var iconButton: UIButton!
     var heartButton: UIButton!
@@ -82,7 +80,6 @@ class InformationViewController: UIViewController {
         pokemonName = UILabel(frame: CGRect(x: 30, y: 100, width: view.frame.width-60, height: 40))
         pokemonName.font = UIFont(name: "Pokemon Solid", size: 25)
         pokemonName.backgroundColor = .red
-       // pokemonName.alpha = 0.7
         pokemonName.textColor = .white
         pokemonName.textAlignment = .center
         pokemonName.text = "# \(pokemon.number!) \(pokemon.name!)"
@@ -95,7 +92,7 @@ class InformationViewController: UIViewController {
         pokemonAttack.text = "Attack: \(pokemon.attack!)"
         pokemonAttack.textAlignment = .center
         view.addSubview(pokemonAttack)
-//
+        
         pokemonDefense = UILabel(frame: CGRect(x: 140, y: 170, width: 100, height: 20))
         pokemonDefense.font = UIFont(name: "Pokemon Classic", size: 9)
         pokemonDefense.backgroundColor = UIColor(red: 1, green: 1, blue: 0.5098, alpha: 1.0)
@@ -103,7 +100,7 @@ class InformationViewController: UIViewController {
         pokemonDefense.textAlignment = .center
         pokemonDefense.text = "Defense: \(pokemon.defense!)"
         view.addSubview(pokemonDefense)
-//
+        
         pokemonHealth = UILabel(frame: CGRect(x: 250, y: 170, width: 100, height: 20))
         pokemonHealth.font = UIFont(name: "Pokemon Classic", size: 9)
         pokemonHealth.backgroundColor = UIColor(red: 0.5765, green: 0.9882, blue: 0.502, alpha: 1.0)
@@ -111,7 +108,7 @@ class InformationViewController: UIViewController {
         pokemonHealth.textAlignment = .center
         pokemonHealth.text = "HP: \(pokemon.health!)"
         view.addSubview(pokemonHealth)
-//
+        
         pokemonSpecialAttack = UILabel(frame: CGRect(x: 30, y: 470, width: 100, height: 20))
         pokemonSpecialAttack.font = UIFont(name: "Pokemon Classic", size: 9)
         pokemonSpecialAttack.backgroundColor = UIColor(red: 0.5647, green: 0.4941, blue: 0.9686, alpha: 1.0)
@@ -119,7 +116,7 @@ class InformationViewController: UIViewController {
         pokemonSpecialAttack.textAlignment = .center
         pokemonSpecialAttack.text = "spAtt: \(pokemon.specialAttack!)"
         view.addSubview(pokemonSpecialAttack)
-//
+        
         pokemonSpecialDefense = UILabel(frame: CGRect(x: 140, y: 470, width: 100, height: 20))
         pokemonSpecialDefense.font = UIFont(name: "Pokemon Classic", size: 9)
         pokemonSpecialDefense.backgroundColor = UIColor(red: 0.5098, green: 1, blue: 0.8275, alpha: 1.0)
@@ -138,7 +135,6 @@ class InformationViewController: UIViewController {
 
         pokemonSpecies = UILabel(frame: CGRect(x: 20, y: 510, width: view.frame.width-40, height: 30))
         pokemonSpecies.font = UIFont(name: "Pokemon Classic", size: 10)
-        //pokemonSpecies.backgroundColor = .red
         pokemonSpecies.textColor = .black
         pokemonSpecies.textAlignment = .center
         pokemonSpecies.text = "Species: \(pokemon.species!)"
@@ -204,16 +200,3 @@ class InformationViewController: UIViewController {
     }
 
 }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-

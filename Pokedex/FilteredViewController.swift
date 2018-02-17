@@ -155,37 +155,19 @@ class FilteredViewController: UIViewController {
     
     func settingSC() {
         navigationController?.navigationBar.barTintColor = UIColor.red
-//        navigationController?.navigationBar.barTintColor?.withAlphaComponent(0.5)
         navigationController?.navigationBar.tintColor = UIColor.white;
-//        self.navigationController?.navigationBar.alpha = 0.3
         let items = ["Grid", "List"]
         let customSC = UISegmentedControl(items: items)
         customSC.addTarget(self, action: #selector(switchingSC), for: .valueChanged)
         customSC.selectedSegmentIndex = 0
         gridView.isHidden = false
         listView.isHidden = true
-//        switch customSC.selectedSegmentIndex {
-//        case 0:
-//            gridView.isHidden = false
-//            listView.isHidden = true
-//        case 1:
-//            gridView.isHidden = true
-//            listView.isHidden = false
-//        default:
-//            break
-//        }
-        
-        // Set up Frame and SegmentedControl
-//        customSC = UISegmentedControl(frame: CGRect(x: 30, y: 10, width: view.frame.width - 60, height: 40))
         
         // Style the Segmented Control
         customSC.sizeToFit()
         customSC.layer.cornerRadius = 5.0  // Don't let background bleed
         customSC.backgroundColor = .red
         customSC.tintColor = .white
-        
-        // Add target action method
-        //  customSC.addTarget(self, action: Selector("______"), for: .valueChanged)
         
         // Add this custom Segmented Control to our view
         self.navigationItem.titleView = customSC
@@ -228,19 +210,15 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
                 let data = try Data(contentsOf: url!)
                 pokemonCell.pokemonImageView.image = UIImage(data: data)
                 pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
-                //                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
             } catch {
                 print("No data")
                 pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
                 pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
-                //                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
             }
         } else {
             print("Broken url")
             pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
             pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
-            //            pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
-            //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
         }
     }
     
@@ -286,19 +264,15 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
                 pokemonCell.pokemonImageView.image = UIImage(data: data)
                 print(pokemon.number)
                 pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
-//                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
             } catch {
                 print("No data")
                 pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
                 pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
-//                pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
             }
         } else {
             print("Broken url")
             pokemonCell.pokemonImageView.image = UIImage(named: "pokedex")
             pokemonCell.cellLabel.text = "#\(pokemon.number!) \(pokemon.name!)"
-//            pokemonCell.cellButton.setTitle("#\(pokemon.number!) \(pokemon.name!)", for: .normal)
-            //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
         }
     }
     
@@ -310,8 +284,6 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
     //If we want something to happen when the user taps a cell, then use this method
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
-        //Natasha's Changes
-       // self.performSegue(withIdentifier: "infoSegue", sender: self)
         pokemon = getfilteredPokemon[indexPath.item]
         CellTapped()
     }
@@ -332,13 +304,3 @@ extension FilteredViewController: PokemonViewCellDelegate, PokemonViewCell2Deleg
         forCell.backgroundColor = UIColor.clear
     }
 }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
