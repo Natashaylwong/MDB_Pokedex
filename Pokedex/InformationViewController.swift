@@ -27,7 +27,7 @@ class InformationViewController: UIViewController {
     var pokemonSpeed: UILabel!
     var pokemonTotal: UILabel!
     var pokemonTypes: UILabel!
-    var types = ["Bug", "Grass", "Dark", "Dragon","Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
+    var types = ["Bug", "Dark", "Dragon","Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
     var typeSentence: String!
 
     override func viewDidLoad() {
@@ -38,9 +38,9 @@ class InformationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if pokemon.fav {
-            heartButton.tintColor = .red
+            heartButton.setImage(UIImage(named: "heart1"), for: .normal)
         } else {
-            heartButton.tintColor = .white
+            heartButton.setImage(UIImage(named: "heart"), for: .normal)
         }
     }
 
@@ -63,7 +63,7 @@ class InformationViewController: UIViewController {
         
         heartButton = UIButton(frame: CGRect(x: 300, y: 60, width: 30, height: 30))
         heartButton.setImage(UIImage(named: "heart"), for: .normal)
-        iconButton.addTarget(self, action: #selector(heartPressed), for: .touchUpInside)
+        heartButton.addTarget(self, action: #selector(heartPressed), for: .touchUpInside)
         view.addSubview(heartButton)
         
         pokemonImage = UIImageView(frame: CGRect(x: 0, y: 300, width: view.frame.width - 120, height: 200))
@@ -159,6 +159,7 @@ class InformationViewController: UIViewController {
     }
     
     @objc func heartPressed(sender: UIButton!) {
+        print("pressed")
         if pokemon.fav {
             var i = 0
             while (i < ViewController.favPokemon.count) {
@@ -170,10 +171,10 @@ class InformationViewController: UIViewController {
                 i += 1
             }
             pokemon.fav = false
-            heartButton.tintColor = .white
+            heartButton.setImage(UIImage(named: "heart"), for: .normal)
         } else {
             pokemon.fav = true
-            heartButton.tintColor = .red
+            heartButton.setImage(UIImage(named: "heart1"), for: .normal)
             ViewController.favPokemon.append(pokemon)
         }
     }
