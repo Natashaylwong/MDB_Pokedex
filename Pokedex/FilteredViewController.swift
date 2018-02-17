@@ -226,6 +226,7 @@ extension FilteredViewController: UICollectionViewDelegate, UICollectionViewData
         print(indexPath.row)
         pokemon = getfilteredPokemon[indexPath.row]
         CellTapped()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
