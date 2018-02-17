@@ -62,14 +62,14 @@ class InformationViewController: UIViewController {
         pokemonName.text = "#\(pokemon.number!) \(pokemon.name!)"
         view.addSubview(pokemonName)
         
-        pokemonAttack = UILabel(frame: CGRect(x: 160, y: 170, width: 200, height: 15))
+        pokemonAttack = UILabel(frame: CGRect(x: 160, y: 170, width: 190, height: 15))
         pokemonAttack.font = UIFont(name: "Pokemon Classic", size: 10)
         pokemonAttack.backgroundColor = .red
         pokemonAttack.textColor = .white
         pokemonAttack.text = "Pokemon Attack: \(pokemon.attack!)"
         view.addSubview(pokemonAttack)
 //
-        pokemonDefense = UILabel(frame: CGRect(x: 160, y: 190, width: 200, height: 15))
+        pokemonDefense = UILabel(frame: CGRect(x: 160, y: 190, width: 190, height: 15))
         pokemonDefense.font = UIFont(name: "Pokemon Classic", size: 10)
         pokemonDefense.backgroundColor = .red
         pokemonDefense.textColor = .white
@@ -77,68 +77,61 @@ class InformationViewController: UIViewController {
         pokemonDefense.text = "Pokemon Defense: \(pokemon.defense!)"
         view.addSubview(pokemonDefense)
 //
-//        pokemonHealth = UILabel(frame: CGRect(x: 0, y: 20, width: 200, height: 50))
-//        pokemonHealth.font = UIFont(name: "Pokemon Classic", size: 12)
-//        pokemonHealth.backgroundColor = .red
-//        pokemonHealth.alpha = 0.5
-//        pokemonHealth.textColor = .white
-//        // pokemonDefense.textAlignment = .center
-//        pokemonDefense.text = "Pokemon Health: \(pokemon.health)"
-//        view.addSubview(pokemonHealth)
+        pokemonHealth = UILabel(frame: CGRect(x: 160, y: 210, width: 190, height: 15))
+        pokemonHealth.font = UIFont(name: "Pokemon Classic", size: 10)
+        pokemonHealth.backgroundColor = .red
+        pokemonHealth.textColor = .white
+        // pokemonDefense.textAlignment = .center
+        pokemonHealth.text = "Pokemon Health: \(pokemon.health!)"
+        view.addSubview(pokemonHealth)
 //
-//        pokemonSpecialAttack = UILabel(frame: CGRect(x: 420, y: 20, width: 200, height: 50))
-//        pokemonSpecialAttack.font = UIFont(name: "Pokemon Classic", size: 12)
-//        pokemonSpecialAttack.backgroundColor = .red
-//        pokemonSpecialAttack.alpha = 0.5
-//        pokemonSpecialAttack.textColor = .white
-//        // pokemonDefense.textAlignment = .center
-//        pokemonSpecialAttack.text = "Pokemon Special Attack: \(pokemon.specialAttack)"
-//        view.addSubview(pokemonSpecialAttack)
+        pokemonSpecialAttack = UILabel(frame: CGRect(x: 160, y: 230, width: 190, height: 15))
+        pokemonSpecialAttack.font = UIFont(name: "Pokemon Classic", size: 10)
+        pokemonSpecialAttack.backgroundColor = .red
+        pokemonSpecialAttack.textColor = .white
+        // pokemonDefense.textAlignment = .center
+        pokemonSpecialAttack.text = "Special Attack: \(pokemon.specialAttack!)"
+        view.addSubview(pokemonSpecialAttack)
 //
-//        pokemonSpecialDefense = UILabel(frame: CGRect(x: 480, y: 20, width: 200, height: 50))
-//        pokemonSpecialDefense.font = UIFont(name: "Pokemon Classic", size: 12)
-//        pokemonSpecialDefense.backgroundColor = .red
-//        pokemonSpecialDefense.alpha = 0.5
-//        pokemonSpecialDefense.textColor = .white
-//        // pokemonDefense.textAlignment = .center
-//        pokemonSpecialAttack.text = "Pokemon Special Defense: \(pokemon.specialAttack)"
-//        view.addSubview(pokemonSpecialDefense)
+        pokemonSpecialDefense = UILabel(frame: CGRect(x: 160, y: 250, width: 190, height: 15))
+        pokemonSpecialDefense.font = UIFont(name: "Pokemon Classic", size: 10)
+        pokemonSpecialDefense.backgroundColor = .red
+        pokemonSpecialDefense.textColor = .white
+        // pokemonDefense.textAlignment = .center
+        pokemonSpecialDefense.text = "Special Defense: \(pokemon.specialDefense!)"
+        view.addSubview(pokemonSpecialDefense)
 //
-//        pokemonSpecies = UILabel(frame: CGRect(x: 520, y: 20, width: 200, height: 50))
-//        pokemonSpecies.font = UIFont(name: "Pokemon Classic", size: 12)
-//        pokemonSpecies.backgroundColor = .red
-//        pokemonSpecies.alpha = 0.5
-//        pokemonSpecies.textColor = .white
-//        // pokemonDefense.textAlignment = .center
-//        pokemonSpecialAttack.text = "Pokemon Species: \(pokemon.species)"
-//        view.addSubview(pokemonSpecies)
+        pokemonSpecies = UILabel(frame: CGRect(x: 160, y: 270, width: 190, height: 15))
+        pokemonSpecies.font = UIFont(name: "Pokemon Classic", size: 10)
+        pokemonSpecies.backgroundColor = .red
+        pokemonSpecies.textColor = .white
+        // pokemonDefense.textAlignment = .center
+        pokemonSpecies.text = "Pokemon Species: \(pokemon.species!)"
+        view.addSubview(pokemonSpecies)
 //
-//        pokemonSpeed = UILabel(frame: CGRect(x: 580, y: 20, width: 200, height: 50))
-//        pokemonSpeed.font = UIFont(name: "Pokemon Classic", size: 12)
-//        pokemonSpeed.backgroundColor = .red
-//        pokemonSpeed.alpha = 0.5
-//        pokemonSpeed.textColor = .white
-//        // pokemonDefense.textAlignment = .center
-//        pokemonSpecialAttack.text = "Pokemon Speed: \(pokemon.speed)"
-//        view.addSubview(pokemonSpecies)
+        pokemonSpeed = UILabel(frame: CGRect(x: 160, y: 290, width: 190, height: 15))
+        pokemonSpeed.font = UIFont(name: "Pokemon Classic", size: 10)
+        pokemonSpeed.backgroundColor = .red
+        pokemonSpeed.textColor = .white
+        // pokemonDefense.textAlignment = .center
+        pokemonSpeed.text = "Pokemon Speed: \(pokemon.speed!)"
+        view.addSubview(pokemonSpeed)
 //
-//        pokemonTotal = UILabel(frame: CGRect(x: 620, y: 20, width: 200, height: 50))
-//        pokemonTotal.font = UIFont(name: "Pokemon Classic", size: 12)
-//        pokemonTotal.backgroundColor = .red
-//        pokemonTotal.alpha = 0.5
-//        pokemonTotal.textColor = .white
-//        // pokemonDefense.textAlignment = .center
-//        pokemonSpecialAttack.text = "Pokemon Total: \(pokemon.total)"
-//        view.addSubview(pokemonTotal)
+        pokemonTotal = UILabel(frame: CGRect(x: 160, y: 310, width: 190, height: 15))
+        pokemonTotal.font = UIFont(name: "Pokemon Classic", size: 10)
+        pokemonTotal.backgroundColor = .red
+        pokemonTotal.textColor = .white
+        // pokemonDefense.textAlignment = .center
+        pokemonTotal.text = "Pokemon Total: \(pokemon.total!)"
+        view.addSubview(pokemonTotal)
 //
-//        pokemonTypes = UILabel(frame: CGRect(x: 620, y: 20, width: 200, height: 50))
-//        pokemonTypes.font = UIFont(name: "Pokemon Classic", size: 12)
-//        pokemonTypes.backgroundColor = .red
-//        pokemonTypes.alpha = 0.5
-//        pokemonTypes.textColor = .white
-//        // pokemonDefense.textAlignment = .center
-//        pokemonTypes.text = "Pokemon Types: \(pokemon.types)"
-//        view.addSubview(pokemonTypes)
+        pokemonTypes = UILabel(frame: CGRect(x: 160, y: 330, width: 190, height: 15))
+        pokemonTypes.font = UIFont(name: "Pokemon Classic", size: 10)
+        pokemonTypes.backgroundColor = .red
+        pokemonTypes.textColor = .white
+        // pokemonDefense.textAlignment = .center
+        pokemonTypes.text = "Pokemon Types: \(pokemon.types)"
+        view.addSubview(pokemonTypes)
     }
     
     @objc func heartPressed(sender: UIButton!) {
