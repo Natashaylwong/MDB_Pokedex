@@ -42,6 +42,25 @@ class FilteredViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false
+        if getfilteredPokemon.count == 0 {
+            let alert = UIAlertController(title: "No Pokemon(s) Matched!", message: "Please adjust your filters and try again.", preferredStyle: UIAlertControllerStyle.alert)
+            self.present(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                switch action.style{
+                case.default:
+                    print("default")
+                    self.navigationController?.popToRootViewController(animated: true)
+                    
+                case.cancel:
+                    print("cancel")
+                    self.navigationController?.popToRootViewController(animated: true)
+                    
+                case.destructive:
+                    print("destructive")
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+            }))
+        }
     }
     
     func setupListView() {
