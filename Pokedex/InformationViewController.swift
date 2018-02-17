@@ -53,27 +53,27 @@ class InformationViewController: UIViewController {
     func setupLayout() {
         navigationController?.navigationBar.tintColor = UIColor.white;
         
-        iconButton = UIButton(frame: CGRect(x: 20, y: 620, width: 40, height: 40))
+        iconButton = UIButton(frame: CGRect(x: 10, y: 620, width: 30, height: 30))
         iconButton.setImage(UIImage(named: "info"), for: .normal)
         iconButton.addTarget(self, action: #selector(infoPressed), for: .touchUpInside)
         view.addSubview(iconButton)
         
-        heartButton = UIButton(frame: CGRect(x: 320, y: 620, width: 40, height: 40))
+        heartButton = UIButton(frame: CGRect(x: 335, y: 620, width: 30, height: 30))
         heartButton.setImage(UIImage(named: "heart"), for: .normal)
         iconButton.addTarget(self, action: #selector(heartPressed), for: .touchUpInside)
         view.addSubview(heartButton)
         
-        favoritesLabel = UILabel(frame: CGRect(x: 140, y: 620, width: 200, height: 40))
+        favoritesLabel = UILabel(frame: CGRect(x: 160, y: 620, width: 200, height: 40))
         favoritesLabel.font = UIFont(name: "Pokemon Classic", size: 10)
         favoritesLabel.textColor = .black
         favoritesLabel.text = "Add to Favorites"
         favoritesLabel.textAlignment = .center
         view.addSubview(favoritesLabel)
         
-        internetLabel = UILabel(frame: CGRect(x: 60, y: 620, width: 100, height: 40))
+        internetLabel = UILabel(frame: CGRect(x: 50, y: 620, width: 120, height: 40))
         internetLabel.font = UIFont(name: "Pokemon Classic", size: 10)
         internetLabel.textColor = .black
-        internetLabel.text = "Internet"
+        internetLabel.text = "Search on Web"
         internetLabel.textAlignment = .center
         view.addSubview(internetLabel)
         
