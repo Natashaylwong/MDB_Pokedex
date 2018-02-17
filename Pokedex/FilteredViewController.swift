@@ -75,7 +75,7 @@ class FilteredViewController: UIViewController {
                 getfilteredPokemon.append(i)
             }
         }
-        else if namePokemon != nil || namePokemon != "" {
+        else if namePokemon != nil && namePokemon != "" {
             for i in pokemonArray {
                 if (i.name == namePokemon) {
                     getfilteredPokemon.append(i)
