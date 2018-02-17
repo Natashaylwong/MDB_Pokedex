@@ -13,8 +13,8 @@ class FilteredViewController: UIViewController {
     var attack = 0
     var health = 0
     var defense = 0
-    var favPokemon: Array<Int>!
-    var favPressed: Bool!
+    var favPokemon: Array<Pokemon> = []
+    var favPressed: Bool = false
     var randomPokemon = Set<Int>()
     var namePokemon: String!
     var pokemon: Pokemon!
@@ -24,10 +24,10 @@ class FilteredViewController: UIViewController {
     
     var gridView: UICollectionView!
     var listView: UITableView!
-    var pokemonArray = PokemonGenerator.getPokemonArray()
+    var pokemonArray = [Pokemon]()
     var getfilteredPokemon = Array<Pokemon>()
     var numOfPokemon: Int = 800
-    var pokemonTypes = ["Bug", "Grass", "Dark", "Dragon","Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
+    var pokemonTypes = ["Bug", "Dark", "Dragon", "Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,16 +58,21 @@ class FilteredViewController: UIViewController {
     }
     
     func filtering() {
+        print(namePokemon)
         if !randomPokemon.isEmpty {
             //Have an array list of numbers that you want to use to find the index of the pokemon
-            for i in randomPokemon {
-                getfilteredPokemon.append(pokemonArray[i])
+            for i in pokemonArray {
+                for j in randomPokemon {
+                    if i.number == j {
+                        getfilteredPokemon.append(i)
+                    }
+                }
                 
             }
         }
-        else if favPokemon != nil {
+        else if favPressed {
             for i in favPokemon {
-                getfilteredPokemon.append(pokemonArray[i])
+                getfilteredPokemon.append(i)
             }
         }
         else if namePokemon != nil || namePokemon != "" {
@@ -78,7 +83,9 @@ class FilteredViewController: UIViewController {
                 }
             }
         } else if attack == 0 && defense == 0 && health == 0  && types.isEmpty {
-            getfilteredPokemon = PokemonGenerator.getPokemonArray()
+            for i in pokemonArray {
+                getfilteredPokemon.append(i)
+            }
         } else {
             for i in pokemonArray {
                 if types.isEmpty {
@@ -89,18 +96,15 @@ class FilteredViewController: UIViewController {
                         getfilteredPokemon.append(i)
                     }
                 } else {
-                    for i in types {
-                        getTypes.insert(pokemonTypes[i])
+                    for j in types {
+                        getTypes.insert(pokemonTypes[j])
                     }
-                    if attack == 0 && defense == 0 && health == 0 {
-                        for i in pokemonArray {
-                            let listSet = Set(i.types)
-                            let findListSet = Set(getTypes)
-                            
-                            let allElemsContained = findListSet.isSubset(of: listSet)
-                            if allElemsContained {
-                                getfilteredPokemon.append(i)
-                            }
+                    if i.attack >= attack && i.defense >= defense && i.health >= health {
+                        let listSet = Set(i.types)
+                        
+                        let allElemsContained = getTypes.isSubset(of: listSet)
+                        if allElemsContained {
+                            getfilteredPokemon.append(i)
                         }
                     }
                 }
@@ -132,9 +136,9 @@ class FilteredViewController: UIViewController {
     
     func settingSC() {
         navigationController?.navigationBar.barTintColor = UIColor.red
-        navigationController?.navigationBar.barTintColor?.withAlphaComponent(0.5)
+//        navigationController?.navigationBar.barTintColor?.withAlphaComponent(0.5)
         navigationController?.navigationBar.tintColor = UIColor.white;
-        self.navigationController?.navigationBar.alpha = 0.3
+//        self.navigationController?.navigationBar.alpha = 0.3
         let items = ["Grid", "List"]
         let customSC = UISegmentedControl(items: items)
         customSC.addTarget(self, action: #selector(switchingSC), for: .valueChanged)

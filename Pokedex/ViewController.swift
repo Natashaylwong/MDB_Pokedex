@@ -28,8 +28,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var searchButton: UIButton!
     var randomButton: UIButton!
     var favoritesButton: UIButton!
-    var favPokemon: Array<Int>!
-    var randomPokemon = Set<Int>()
+    static var favPokemon = Array<Pokemon>()
+    var randomPokemon: Set<Int>!
     
     var scView:UIScrollView!
     let buttonPadding:CGFloat = 10
@@ -43,8 +43,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var attack =  0
     var health = 0
     var defense = 0
-    
-    var types = ["Bug", "Grass", "Dark", "Dragon","Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Physic", "Rock", "Steel", "Water"]
+    var pokemonArray = PokemonGenerator.getPokemonArray()
 
 
     override func viewDidLoad() {
@@ -56,6 +55,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         favPressed = false
+        randomPokemon = Set<Int>()
         self.pokemonSearch.delegate = self
         self.attackInput.delegate = self
         self.healthInput.delegate = self
@@ -194,10 +194,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func pokemonSearchText (sender: UITextField) {
-         namePokemon = sender.text
-
-
+    @objc func pokemonSearchText (sender: UITextField) {
+        let numPokemon = Int(sender.text!)
+        if numPokemon != nil {
+            for i in pokemonArray {
+                if numPokemon == i.number {
+                    namePokemon = i.name
+                }
+            }
+        } else {
+            namePokemon = sender.text
+        }
     }
     
     @objc func favoritesButtonTapped (sender: UIButton) {
@@ -212,7 +219,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.performSegue(withIdentifier: "findSegue", sender: self)
     }
 
-    func typeButtonTouched(sender: UIButton) {
+    @objc func typeButtonTouched(sender: UIButton) {
         if (filteredType.contains(sender.tag)){
             filteredType.remove(sender.tag)
             sender.layer.borderWidth = 2
@@ -227,6 +234,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func findButtonTapped(sender: UIButton) {
+        
         self.performSegue(withIdentifier: "findSegue", sender: self)
     }
     
@@ -239,9 +247,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             filtered.attack = attack
             filtered.health = health
             filtered.defense = defense
-            filtered.favPokemon = favPokemon
+            filtered.favPokemon = ViewController.favPokemon
             filtered.favPressed = favPressed
             filtered.randomPokemon = randomPokemon
+            filtered.pokemonArray = pokemonArray
         }
         
     }
